@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Animator _animator;
     [SerializeField] private float _speedOfMovement = 5f;
     [SerializeField] private float _jumpForce = 4f;
+    [SerializeField] private float _doubleJumpForce = 3f;
     [SerializeField] private float _dashDistance = 5f;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private int _chocolate = 0;
 
     private float _playerGravity;
 
@@ -24,13 +24,17 @@ public class PlayerController : MonoBehaviour {
     private bool _isGrounded = false;
     private bool _isJumping = false;
     private bool _isDoubleJumping = false;
+    private bool _toRemoveChocolate = true;
     private string _currentAnimationState;
+    private int _amountOfChocolate = 0;
+    private Vector2 _respawnPoint;
 
     private const string PLAYER_IDLE_ANIMATION = "PlayerIdle";
     private const string PLAYER_WALK_ANIMATION = "PlayerWalk";
     private const string PLAYER_JUMP_ANIMATION = "PlayerJump";
     private const string PLAYER_DOUBLE_JUMP_ANIMATION = "PlayerDoubleJump";
     private const string PLAYER_DASH_ANIMATION = "PlayerDash";
+    private const string DEAD_ZONE_TAG = "DeadZone";
 
     #endregion
 
@@ -39,7 +43,7 @@ public class PlayerController : MonoBehaviour {
     private void Start() {
         Initialize();
 
-        EventObserver.GetChocolateAction += AddChocolate;
+        EventObserver.GetChocolateEvent += AddChocolate;
     }
 
     private void Update() {
@@ -56,19 +60,25 @@ public class PlayerController : MonoBehaviour {
             _jump = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.J)) {
+        if(Input.GetKeyDown(KeyCode.J) && _amountOfChocolate > 0) {
             _dash = true;
+            RemoveChocolate();
         }
 
     }
 
     private void FixedUpdate() {
-
         CheckGround();
         Move();
         Dash();
         DoubleJump();
         Jump();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag(DEAD_ZONE_TAG)) {
+            Respawn();
+        }
     }
 
     #endregion
@@ -77,6 +87,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Initialize() {
         _playerGravity = _rigidbody2D.gravityScale;
+        _respawnPoint = new Vector2(transform.position.x, transform.position.y);
     }
 
     private void CheckGround() {
@@ -144,37 +155,29 @@ public class PlayerController : MonoBehaviour {
             _isDoubleJumping = true;
 
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
-            _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            _rigidbody2D.AddForce(Vector2.up * _doubleJumpForce, ForceMode2D.Impulse);
 
             ChangeAnimationState(PLAYER_DOUBLE_JUMP_ANIMATION);
         }
     }
 
     private void AddChocolate() {
-        _chocolate++;
+        _amountOfChocolate++;
+        EventObserver.UpdateDashTextEvent(_amountOfChocolate);
+    }
+
+    private void RemoveChocolate() {
+        if(_amountOfChocolate > 0 && _toRemoveChocolate) {
+            _toRemoveChocolate = false;
+            _amountOfChocolate--;
+            EventObserver.UpdateDashTextEvent(_amountOfChocolate);
+        }
     }
 
     private void Dash() {
         if(_dash) {
             StartCoroutine(DashCoroutine());
         }
-        /*
-        float direction = 0f;
-        if(_lookRight)
-            direction = 1f;
-        
-        if(!_lookRight)
-            direction = -1f;
-
-        if(_dash) {
-            _dash = false;
-            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
-            _rigidbody2D.AddForce(new Vector2(_dashDistance * direction, 0f), ForceMode2D.Impulse);
-            _rigidbody2D.gravityScale = 0;
-
-            Invoke("RestoreGracity", 1f);
-        }*/
-        
     }
 
     private void ChangeAnimationState(string newAnimationState) {
@@ -186,11 +189,23 @@ public class PlayerController : MonoBehaviour {
         _currentAnimationState = newAnimationState;
     }
 
-    IEnumerator DashCoroutine() {
+    private void Respawn() {
+        transform.position = new Vector2(_respawnPoint.x, _respawnPoint.y);
+        _amountOfChocolate = 0;
+        EventObserver.UpdateDashTextEvent(_amountOfChocolate);
+        EventObserver.RespawnPlayerEvent();
+    }
+
+    #endregion
+
+    #region IEnumerator
+
+    private IEnumerator DashCoroutine() {
+
         float direction = 0f;
+
         if(_lookRight)
             direction = 1f;
-        
         if(!_lookRight)
             direction = -1f;
 
@@ -200,8 +215,9 @@ public class PlayerController : MonoBehaviour {
         ChangeAnimationState(PLAYER_DASH_ANIMATION);
         yield return new WaitForSeconds(0.2f);
         _dash = false;
+        _toRemoveChocolate = true;
         _rigidbody2D.gravityScale = _playerGravity;
-        //_rigidbody2D.velocity = new Vector2(0f, 0f);
     }
+    
     #endregion
 }

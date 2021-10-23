@@ -7,6 +7,10 @@ public class ChocolateController : MonoBehaviour {
 
     private const string PLAYER_TAG = "Player";
 
+    private void Awake() {
+        EventObserver.RespawnPlayerEvent += ActivateChocolate;
+    }
+
     private void Start() {
         DOTween.Init();
 
@@ -15,8 +19,12 @@ public class ChocolateController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.CompareTag(PLAYER_TAG))
-            EventObserver.GetChocolateAction();
+            EventObserver.GetChocolateEvent();
             gameObject.SetActive(false);
+    }
+
+    private void ActivateChocolate() {
+        gameObject.SetActive(true);
     }
 
     private void move() {

@@ -5,5 +5,9 @@ using UnityEngine;
 
 public static class EventObserver {
 
-    public static Action GetChocolateAction;
+    public static Action GetChocolateEvent;
+
+    public static Action<int> UpdateDashTextEvent;
+
+    public static Action RespawnPlayerEvent;
 }
