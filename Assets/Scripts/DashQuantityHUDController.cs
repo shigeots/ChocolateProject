@@ -11,6 +11,10 @@ public class DashQuantityHUDController : MonoBehaviour {
         EventObserver.UpdateDashTextEvent += UpdateText;
     }
 
+    private void OnDestroy() {
+        EventObserver.UpdateDashTextEvent -= UpdateText;
+    }
+
     private void UpdateText(int amountOfChocolate) {
         _dashText.text = "x " + amountOfChocolate.ToString();
     }

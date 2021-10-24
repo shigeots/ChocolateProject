@@ -8,11 +8,14 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Animator _animator;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _jumpAudioClip;
     [SerializeField] private float _speedOfMovement = 5f;
     [SerializeField] private float _jumpForce = 4f;
     [SerializeField] private float _doubleJumpForce = 3f;
     [SerializeField] private float _dashDistance = 5f;
     [SerializeField] private LayerMask _groundLayer;
+
 
     private float _playerGravity;
 
@@ -152,6 +155,7 @@ public class PlayerController : MonoBehaviour {
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
             _rigidbody2D.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
 
+            PlayJumpSound();
             ChangeAnimationState(PLAYER_JUMP_ANIMATION);
         }
     }
@@ -165,6 +169,7 @@ public class PlayerController : MonoBehaviour {
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
             _rigidbody2D.AddForce(Vector2.up * _doubleJumpForce, ForceMode2D.Impulse);
 
+            PlayJumpSound();
             ChangeAnimationState(PLAYER_DOUBLE_JUMP_ANIMATION);
         }
     }
@@ -200,8 +205,15 @@ public class PlayerController : MonoBehaviour {
     private void Respawn() {
         transform.position = new Vector2(_respawnPoint.x, _respawnPoint.y);
         _amountOfChocolate = 0;
+        _rigidbody2D.velocity = new Vector2(0f, 0f);
         EventObserver.UpdateDashTextEvent(_amountOfChocolate);
         EventObserver.RespawnPlayerEvent();
+    }
+
+    private void PlayJumpSound() {
+        _audioSource.Stop();
+        _audioSource.clip = _jumpAudioClip;
+        _audioSource.Play();
     }
 
     #endregion
