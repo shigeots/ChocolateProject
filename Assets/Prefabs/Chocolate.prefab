@@ -122,3 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d9831711a732e48a4a16084d6e3d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 6921466666113246693}
+  _boxCollider2D: {fileID: 6921466666113246694}

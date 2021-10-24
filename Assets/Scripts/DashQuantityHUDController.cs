@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class DashQuantityHUDController : MonoBehaviour {
 
-    [SerializeField] private TextMeshProUGUI _dashText;
+    [SerializeField] private Text _dashText;
 
     private void Awake() {
         EventObserver.UpdateDashTextEvent += UpdateText;

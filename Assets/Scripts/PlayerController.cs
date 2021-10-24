@@ -46,6 +46,10 @@ public class PlayerController : MonoBehaviour {
         EventObserver.GetChocolateEvent += AddChocolate;
     }
 
+    private void OnDestroy() {
+        EventObserver.GetChocolateEvent -= AddChocolate;
+    }
+
     private void Update() {
 
         _xAxis = Input.GetAxis("Horizontal");
@@ -63,6 +67,10 @@ public class PlayerController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.J) && _amountOfChocolate > 0) {
             _dash = true;
             RemoveChocolate();
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)) {
+            Respawn();
         }
 
     }

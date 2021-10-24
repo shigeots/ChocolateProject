@@ -11,10 +11,14 @@ public class ChocolateController : MonoBehaviour {
         EventObserver.RespawnPlayerEvent += ActivateChocolate;
     }
 
+    private void OnDestroy() {
+        EventObserver.RespawnPlayerEvent -= ActivateChocolate;
+    }
+
     private void Start() {
         DOTween.Init();
 
-        move();
+        Move();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -27,7 +31,7 @@ public class ChocolateController : MonoBehaviour {
         gameObject.SetActive(true);
     }
 
-    private void move() {
+    private void Move() {
         transform.DOMoveY(transform.position.y + 0.5f, 3f).SetLoops(-1, LoopType.Yoyo);
     }
 }
