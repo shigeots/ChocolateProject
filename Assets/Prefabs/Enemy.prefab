@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8097899698957111941}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FrontGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 8097899699432470910}
   - component: {fileID: 8097899699432470880}
   - component: {fileID: 8097899699432470909}
-  m_Layer: 0
+  - component: {fileID: 1607111414256036903}
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: DeadZone
   m_Icon: {fileID: 0}
@@ -59,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8097899699432470906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.71, y: -2.5, z: 1.2724485}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 8097899700113097356}
@@ -152,7 +153,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0080034435, y: -0.12805629}
+  m_Offset: {x: 0.005202532, y: -0.15466475}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,7 +164,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6211669, y: 0.7438874}
+  m_Size: {x: 0.5315386, y: 0.6906705}
   m_EdgeRadius: 0
 --- !u!61 &8097899699432470880
 BoxCollider2D:
@@ -178,7 +179,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004441023, y: -0.062798336}
+  m_Offset: {x: -0.00023964047, y: -0.10481158}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -189,7 +190,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7512889, y: 0.73476505}
+  m_Size: {x: 0.630851, y: 0.65073854}
   m_EdgeRadius: 0
 --- !u!114 &8097899699432470909
 MonoBehaviour:
@@ -211,6 +212,25 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!95 &1607111414256036903
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8097899699432470906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f75bfcae24c6c4d44acea9757a3db81a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8097899700113097355
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8097899700113097356}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FootGroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

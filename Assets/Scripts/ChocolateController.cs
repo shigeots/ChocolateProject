@@ -22,9 +22,10 @@ public class ChocolateController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag(PLAYER_TAG))
+        if(other.gameObject.CompareTag(PLAYER_TAG)) {
             EventObserver.GetChocolateEvent();
             gameObject.SetActive(false);
+        }
     }
 
     private void ActivateChocolate() {

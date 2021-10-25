@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     private void CheckFrontEnemy() {
-        _frontIsGround = Physics2D.BoxCast(_frontGroundCheckTransform.position, new Vector2(1f , 0.5f), 0f, Vector2.right, 0f, _groundLayer);
+        _frontIsGround = Physics2D.BoxCast(_frontGroundCheckTransform.position, new Vector2(0.2f , 0.5f), 0f, Vector2.right, 0f, _groundLayer);
     }
 
     private void Patrol() {

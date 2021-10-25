@@ -266,8 +266,8 @@ MonoBehaviour:
   _audioSource: {fileID: 7819862241130828866}
   _jumpAudioClip: {fileID: 8300000, guid: 42ef9ee38d3ce0a4b81fea4b41b5e621, type: 3}
   _speedOfMovement: 4
-  _jumpForce: 5.5
-  _doubleJumpForce: 4
+  _jumpForce: 5.6
+  _doubleJumpForce: 4.1
   _dashDistance: 8
   _groundLayer:
     serializedVersion: 2
