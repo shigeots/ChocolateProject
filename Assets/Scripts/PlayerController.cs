@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Animator _animator;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _jumpAudioClip;
+    [SerializeField] private AudioClip _dashAudioClip;
     [SerializeField] private float _speedOfMovement = 5f;
     [SerializeField] private float _jumpForce = 4f;
     [SerializeField] private float _doubleJumpForce = 3f;
@@ -183,6 +184,7 @@ public class PlayerController : MonoBehaviour {
         if(_amountOfChocolate > 0 && _toRemoveChocolate) {
             _toRemoveChocolate = false;
             _amountOfChocolate--;
+            PlayDashSound();
             EventObserver.UpdateDashTextEvent(_amountOfChocolate);
         }
     }
@@ -216,6 +218,12 @@ public class PlayerController : MonoBehaviour {
         _audioSource.Play();
     }
 
+    private void PlayDashSound() {
+        _audioSource.Stop();
+        _audioSource.clip = _dashAudioClip;
+        _audioSource.Play();
+    }
+
     #endregion
 
     #region IEnumerator
@@ -233,6 +241,7 @@ public class PlayerController : MonoBehaviour {
         _rigidbody2D.AddForce(new Vector2(_dashDistance * direction, 0f), ForceMode2D.Impulse);
         _rigidbody2D.gravityScale = 0;
         ChangeAnimationState(PLAYER_DASH_ANIMATION);
+        
         yield return new WaitForSeconds(0.2f);
         _dash = false;
         _toRemoveChocolate = true;

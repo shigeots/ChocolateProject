@@ -5,16 +5,22 @@ using DG.Tweening;
 
 public class TutorialHUDController : MonoBehaviour {
 
+    #region Private properties
+
     [SerializeField] GameObject _tutorialPanel;
 
-    public void ShowTutorialPanel() {
+    #endregion
+
+    #region Internal methods
+
+    internal void ShowTutorialPanel() {
         _tutorialPanel.transform.DOScale(1f, 0.8f)
                 .SetEase(Ease.OutBack);
     }
 
-    [ContextMenu("asdf")]
-    public void HideTutorialPanel() {
+    internal void HideTutorialPanel() {
         _tutorialPanel.transform.DOScale(0f, 0.5f);
-        //_tutorialPanel.SetActive(false);
     }
+
+    #endregion
 }

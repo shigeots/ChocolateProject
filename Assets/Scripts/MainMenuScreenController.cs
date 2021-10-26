@@ -6,13 +6,22 @@ using DG.Tweening;
 
 public class MainMenuScreenController : MonoBehaviour {
 
+    #region Private properties
+
     [SerializeField] RectTransform _title;
     [SerializeField] GameObject _pressEnter;
+    [SerializeField] Canvas _mainMenuScreenCanvas;
 
     private const string SCENE_NAME = "Level0";
+
+    #endregion
+
+    #region Main methods
     
     private void Start() {
         DOTween.Init();
+
+        _mainMenuScreenCanvas.enabled = true;
 
         ShowTitle();
         ShowPressEnter();
@@ -24,6 +33,10 @@ public class MainMenuScreenController : MonoBehaviour {
         }
     }
 
+    #endregion
+
+    #region Private methods
+
     private void ShowTitle() {
         _title.DOAnchorPos(new Vector2(0,0), 2.5f)
                 .SetEase(Ease.OutBounce);
@@ -31,11 +44,12 @@ public class MainMenuScreenController : MonoBehaviour {
 
     private void ShowPressEnter() {
         _pressEnter.transform.DOScale(1, 1.2f)
-                //.SetEase(Ease.OutBack)
                 .SetDelay(2.5f);
     }
 
     private void LoadScene() {
         SceneManager.LoadScene(SCENE_NAME);
     }
+
+    #endregion
 }

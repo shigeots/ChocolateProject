@@ -5,7 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class FinalScreenController : MonoBehaviour {
 
+    #region Private properties
+
     private const string SCENE_NAME = "MenuScene";
+
+    #endregion
+
+    #region Main methods
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Return)) {
@@ -13,7 +19,13 @@ public class FinalScreenController : MonoBehaviour {
         }
     }
 
+    #endregion
+
+    #region Private methdos
+
     private void LoadScene() {
         SceneManager.LoadScene(SCENE_NAME);
     }
+
+    #endregion
 }

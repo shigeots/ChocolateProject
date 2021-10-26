@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
+
+    #region Private properties
+
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private BoxCollider2D _boxCollider2D;
     [SerializeField] private float _speedOfMovement;
@@ -14,6 +17,10 @@ public class EnemyScript : MonoBehaviour
     private bool _mustPatrol = true;
     private bool _mustTurn = false;
     private bool _frontIsGround = false;
+
+    #endregion
+
+    #region Main methods
 
     private void Update() {
         if(_mustPatrol) {
@@ -27,6 +34,10 @@ public class EnemyScript : MonoBehaviour
             _mustTurn = !Physics2D.OverlapCircle(_footGroundCheckTransform.position, 0.1f, _groundLayer);
         }
     }
+
+    #endregion
+
+    #region Private methods
 
     private void CheckFrontEnemy() {
         _frontIsGround = Physics2D.BoxCast(_frontGroundCheckTransform.position, new Vector2(0.2f , 0.5f), 0f, Vector2.right, 0f, _groundLayer);
@@ -46,4 +57,6 @@ public class EnemyScript : MonoBehaviour
         _speedOfMovement *= -1;
         _mustPatrol = true;
     }
+
+    #endregion
 }

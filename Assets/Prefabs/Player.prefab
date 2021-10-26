@@ -164,7 +164,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   _animator: {fileID: 3895422038305392254}
   _audioSource: {fileID: 7819862241130828866}
   _jumpAudioClip: {fileID: 8300000, guid: 42ef9ee38d3ce0a4b81fea4b41b5e621, type: 3}
+  _dashAudioClip: {fileID: 8300000, guid: c6c31fbfded2d204ca823e184422a660, type: 3}
   _speedOfMovement: 4
   _jumpForce: 5.6
   _doubleJumpForce: 4.1
